@@ -184,13 +184,26 @@ BatiFlow는 설정에서 **클릭 몇 번으로 AI를 바로 사용**할 수 있
 - **온보딩 가이드** — 첫 실행 시 5단계 안내 (Gemini 무료 키 발급까지)
 - **다크/라이트 테마** — 적응형 색상 시스템 (시스템/다크/라이트 선택)
 - **설정 검색** — 키워드로 설정 섹션 필터링
-- **MCP 연동** — Claude Code / Cursor에서 원클릭 설정 (메신저 + 브라우저 12개 도구)
+- **MCP 연동** — Claude Code / Cursor에서 원클릭 설정 (메신저 + 브라우저 + 파일 + 캘린더 + 메모 + 미리알림 21개 도구)
 - **플로팅 모드** — ⌘⇧Space로 어디서든 AI 커맨드 패널 호출
 - **화면 녹화 → 스킬** — 클릭/타이핑을 녹화하면 재사용 가능한 자동화로 변환
 - **주소록** — 카카오톡 친구 자동 가져오기, 그룹 관리, 검색
 - **로컬 기반** — 모든 데이터는 Mac에만 저장, 개인정보 외부 전송 없음
 
 ## 설치
+
+### Homebrew
+
+```bash
+brew install batiai/tap/batiflow
+```
+
+### npm (MCP 서버)
+
+```bash
+npx batiflow-mcp
+```
+
 
 > macOS 13 (Ventura) 이상 · Apple Silicon & Intel · 서명 + 공증 완료
 
@@ -277,7 +290,21 @@ batiflow-cli send "#general" "공지사항입니다" --app slack
 | `batiflow_browser_evaluate` | JavaScript 실행 |
 | `batiflow_browser_page_info` | 현재 페이지 정보 |
 
-> Claude Code에서 "브라우저에서 사내 어드민 통계 가져와서 정리해줘" 같은 명령도 가능합니다.
+### macOS 네이티브 도구
+
+| 도구 | 설명 |
+|------|------|
+| `batiflow_file_read` | 파일 읽기 (PDF/XLSX/DOCX/PPTX 텍스트 추출) |
+| `batiflow_file_write` | 파일 생성/수정 |
+| `batiflow_file_search` | 파일명/내용 검색 |
+| `batiflow_calendar_list` | 캘린더 일정 조회 |
+| `batiflow_calendar_create` | 일정 생성 |
+| `batiflow_notes_create` | 메모 생성 |
+| `batiflow_notes_search` | 메모 검색 |
+| `batiflow_reminders_create` | 미리알림 생성 |
+| `batiflow_system_shell` | 셸 명령 실행 |
+
+> Claude Code에서 "이번주 일정 확인해서 정리해줘", "다운로드 폴더 PDF 요약해서 메모에 저장해줘" 같은 명령도 가능합니다.
 
 ## 스킬 패키지
 
