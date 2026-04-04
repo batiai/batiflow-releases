@@ -16,7 +16,23 @@
 
 ---
 
-![BatiFlow Demo](demo.gif)
+### AI 에이전트 — 말로 시키면 알아서 합니다
+
+![BatiFlow AI Demo](demo-ai.gif)
+
+> **1.** 카카오톡 읽기 → AI 요약 → 다른 사람에게 전달
+>
+> **2.** 파일 탐색 → PDF 요약 → 메모 앱에 저장
+>
+> **3.** 브라우저 검색 → 화면 캡처 → 카톡 발송
+
+---
+
+### 카카오톡 자동 발송
+
+![BatiFlow KakaoTalk Demo](demo.gif)
+
+---
 
 ## 이런 걸 할 수 있습니다
 
