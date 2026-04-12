@@ -2,392 +2,324 @@
 
 # BatiFlow
 
-**AI가 내 Mac을 자동화해주는 무료 앱**
+**On-device AI desktop automation for Mac** — free, private, unlimited.
 
-100+ 오픈소스 AI 모델 · 카카오톡 · Slack · 브라우저 — 말로 시키면 AI가 알아서 합니다
+Run open-source AI models locally on your Mac with a few clicks. No cloud, no API keys, no cost.
+Control any macOS app through natural language — even apps without APIs.
 
 [![Release](https://img.shields.io/github/v/release/batiai/batiflow-releases?style=flat-square&color=5994FF)](https://github.com/batiai/batiflow-releases/releases/latest)
 [![macOS](https://img.shields.io/badge/macOS-13%2B-000?style=flat-square&logo=apple)](https://github.com/batiai/batiflow-releases/releases/latest)
 [![License](https://img.shields.io/badge/license-Proprietary-333?style=flat-square)](https://bati.ai)
 
-[다운로드](https://github.com/batiai/batiflow-releases/releases/latest) · [이슈 리포트](https://github.com/batiai/batiflow-releases/issues) · [flow.bati.ai](https://flow.bati.ai)
+[**Download**](https://github.com/batiai/batiflow-releases/releases/latest) · [Website](https://flow.bati.ai) · [BatiAI Models](https://huggingface.co/batiai) · [Ollama Library](https://ollama.com/batiai) · [Issues](https://github.com/batiai/batiflow-releases/issues)
 
 </div>
 
 ---
 
-### AI 에이전트 — 말로 시키면 알아서 합니다
+## Why BatiFlow?
+
+| | BatiFlow | ChatGPT / Claude | Zapier / Make / n8n |
+|--|---------|-----------------|---------------------|
+| **Cost** | Free forever | $20/month | $11-69/month |
+| **Privacy** | 🔒 100% on your Mac | Data sent to cloud | Data sent to cloud |
+| **Limits** | Unlimited | Rate limited | Task limited |
+| **Desktop app control** | KakaoTalk, Slack, Chrome, Calendar... | Chat only | No desktop apps |
+| **Apps without APIs** | ✅ via macOS Accessibility | ❌ | ❌ |
+| **Local AI** | One-click setup | ❌ | ⚠️ Complex |
+| **Non-developer friendly** | GUI — no code needed | API/prompt only | Workflow builder |
+
+---
+
+## Quick Start
+
+1. **Download** — [Latest Release](https://github.com/batiai/batiflow-releases/releases/latest) (6 MB DMG, signed + notarized)
+2. **Choose AI** — Gemini (free, recommended) or On-device AI via Ollama
+3. **Start chatting** — ask anything in natural language, AI auto-selects from 70+ tools
+
+**On-device AI setup (no internet needed):**
+```
+Settings > AI > On-device AI (Ollama) > Install > Download model > Done
+```
+BatiFlow auto-detects your Mac's RAM and recommends the best model. No terminal needed.
+
+---
+
+## AI Agent — Tell it what to do
 
 ![BatiFlow AI Demo](demo-ai.gif)
 
-> **1.** 카카오톡 읽기 → AI 요약 → 다른 사람에게 전달
+> **1.** Read KakaoTalk messages → AI summary → Forward to another person
 >
-> **2.** 파일 탐색 → PDF 요약 → 메모 앱에 저장
+> **2.** Browse files → Summarize PDF → Save to Notes app
 >
-> **3.** 브라우저 검색 → 화면 캡처 → 카톡 발송
+> **3.** Google search → Screenshot → Send via KakaoTalk
+
+```
+"Search Google for AI news and send a summary to my team on KakaoTalk"
+  → browser.search → ai.compose → kakaotalk.send
+
+"What's on my calendar today?"
+  → calendar.list → formatted response
+
+"Read the latest chat from John on Slack and reply with a summary"
+  → slack.read → ai.compose → slack.send
+```
 
 ---
 
-### 카카오톡 자동 발송
+## On-device AI — BatiAI Quantized Models
+
+[BatiAI](https://huggingface.co/batiai) self-quantized models optimized for Apple Silicon. One-click download from the app — no terminal needed.
+
+| Model | Size | M4 16GB | M4 Max 128GB | Best for |
+|-------|------|:-------:|:------------:|----------|
+| [batiai/gemma4-e2b:q4](https://huggingface.co/batiai/gemma-4-E2B-it-GGUF) | 3.2 GB | 107.8 t/s | 132.5 t/s | 8 GB Mac · Ultra light |
+| [batiai/gemma4-e4b:q4](https://huggingface.co/batiai/gemma-4-E4B-it-GGUF) | 5.0 GB | 57.1 t/s | 84.0 t/s | 8-16 GB Mac |
+| ⭐ [batiai/qwen3.5-9b:q4](https://ollama.com/batiai/qwen3.5-9b) | 5.2 GB | 12.5 t/s | 50.0 t/s | **16 GB Mac · Best for tool calling** |
+| [batiai/qwen3.5-9b:q6](https://ollama.com/batiai/qwen3.5-9b) | 6.9 GB | — | 39.2 t/s | 16 GB Mac · Higher quality |
+| ⭐ [batiai/gemma4-26b:iq4](https://ollama.com/batiai/gemma4-26b) | 13 GB | — | **93.6 t/s** | **24 GB Mac · MoE · Fastest** |
+| [batiai/gemma4-26b:q4](https://ollama.com/batiai/gemma4-26b) | 16 GB | — | 74.9 t/s | 32 GB Mac · Highest quality |
+| [batiai/gemma4-31b:iq4](https://ollama.com/batiai/gemma4-31b) | 16 GB | — | 22.8 t/s | 48 GB+ Mac · 256K context |
+| [batiai/gemma4-31b:iq3](https://ollama.com/batiai/gemma4-31b) | 13 GB | — | 20.7 t/s | 48 GB+ Mac · Smaller |
+
+> All benchmarks measured with `ollama run --verbose`. Real-world speeds on your Mac.
+
+```bash
+# Install from terminal (or just click "Download" in the app)
+ollama pull batiai/qwen3.5-9b:q4      # 16 GB Mac
+ollama pull batiai/gemma4-26b:iq4     # 24 GB Mac
+ollama pull batiai/gemma4-31b:iq4     # 48 GB+ Mac
+```
+
+Your data never leaves your Mac. 🔒
+
+**Also supports:** Gemini (free tier) · Claude · OpenAI · Claude Max — switch models mid-conversation.
+
+---
+
+## Features
+
+### 💬 AI Agent with 70+ Built-in Tools
+Natural language → automatic tool selection → execution → result summary. No scripting required. Non-developers can use it right away — just type what you want done.
+
+### 📱 Messenger Automation
+- **KakaoTalk** — Send/read messages, bulk send with templates, contact search
+- **Slack** — Send to channels/users, read message history
+- **iMessage** — Send/read via AppleScript
+- Works with apps that have **no public API** — BatiFlow uses macOS Accessibility APIs to directly control desktop apps, just like a human would.
+
+### 🌐 Chrome Browser Automation
+- Navigate, click, type, screenshot, extract page content
+- **Login sessions preserved** — automate internal dashboards, admin panels, e-commerce backends without re-login
+- Network API monitoring + capture
+- Auto-diagnostics: Chrome + Node.js one-click install from the app
+
+### 🖥 macOS Native App Control
+BatiFlow directly integrates with macOS native frameworks — not just shell scripts, but **real native APIs**:
+- **Calendar** — EventKit: create/list/search events
+- **Reminders** — EventKit: create/complete reminders
+- **Notes** — AppleScript: create/search/append notes
+- **Mail** — AppleScript: compose and send emails with attachments
+- **Finder** — File operations, PDF/XLSX/DOCX/PPTX text extraction
+- **System** — Volume/brightness, screenshots, shell commands, clipboard, notifications
+
+### 🤖 External Channels
+Connect AI to external messaging platforms — BatiFlow becomes your AI agent on any channel:
+- **Telegram Bot** — Long polling, image sending, Markdown, real-time streaming
+- **Slack Bot** — Bidirectional messaging via Web API
+- **Discord Bot** — REST API, typing indicators
+- **Webhook (HTTP)** — Local HTTP server for curl, Apple Shortcuts, n8n
+
+### 📊 Statistics & Benchmarks
+- LLM performance monitoring (tok/s per model)
+- Usage analytics (AI calls, session time, tool breakdown)
+- Global benchmark comparison — see how your Mac performs vs others with the same chip
+
+### 🛠 Extensible
+- **YAML custom tools** — Add your own tools without writing code
+- **Multi-step skills** — Chain tools into automated workflows
+- **Cron scheduler** — Schedule skills to run daily/weekly/custom
+- **Visual editor** — Manage tools and skills in the GUI
+- **Skill packages (.bfskill)** — Export/import/share workflows
+- **Screen recording → Skill** — Record clicks and keystrokes, convert to reusable automation
+
+### 🔒 Privacy & Intelligence
+- 🔒 On-device / ☁️ Cloud badge in chat — always know where your data goes
+- ⭐ "Best for your Mac" badge — RAM-based model recommendation
+- RAM shortage warning before downloading large models
+- Model comparison tooltips — speed · quality · best use at a glance
+- 3-step setup guide for first-time users
+
+### ⌨️ Power User
+- **Floating mode** — `⌘⇧Space` to summon AI command panel from anywhere
+- **CLI** — `batiflow-cli send "John" "Hello"` / `batiflow-cli read "John" --limit 50`
+- **MCP** — 21 tools for Claude Code / Cursor (see below)
+
+---
+
+## Desktop App Control — Even Without APIs
 
 ![BatiFlow KakaoTalk Demo](demo.gif)
 
+BatiFlow controls desktop apps through **macOS Accessibility APIs** — the same technology used by screen readers. This means it can automate apps that have **no public API**, like KakaoTalk:
+
+- **Send messages** — to any contact or group, with `{name}` template personalization
+- **Read + AI summarize** — parse chat → AI summary → forward to another person
+- **Bulk send** — select multiple recipients → personalized messages
+- **Safety** — chat title verification + send interruption protection + auto-stop on failures
+- **Slack · iMessage** — same unified interface
+
+> This is something no cloud service (Zapier, Make, ChatGPT) can do — desktop app automation requires direct macOS integration.
+
+### App Support
+
+| App | Send | Read | Chat List | Contact List | Method |
+|-----|:----:|:----:|:---------:|:------------:|--------|
+| KakaoTalk | ✅ | ✅ | ✅ | ✅ | AX API |
+| Slack | ✅ | — | ⚠️ | — | Cmd+K + Clipboard |
+| iMessage | ✅ | — | ✅ | — | AppleScript + AX |
+
 ---
+
+## MCP for Developers
+
+BatiFlow exposes 21 tools via [MCP](https://modelcontextprotocol.io) for AI coding assistants:
+
+```json
+// Claude Code: ~/.claude.json
+{
+  "mcpServers": {
+    "batiflow": {
+      "command": "node",
+      "args": ["/Applications/BatiFlow.app/Contents/Resources/mcp-bridge/index.js"]
+    }
+  }
+}
+```
+
+Works with **Claude Code**, **Cursor**, and any MCP-compatible client.
+
+**Tools:** `kakaotalk_send`, `slack_send`, `browser_navigate`, `browser_screenshot`, `file_read`, `calendar_create`, `notes_create`, `reminders_create`, `system_shell`, and 12 more.
+
+---
+
+## Install
+
+**DMG** (recommended):
+```
+https://github.com/batiai/batiflow-releases/releases/latest
+```
+
+**Homebrew:**
+```bash
+brew install batiai/tap/batiflow
+```
+
+**Requirements:**
+- macOS 13+ (Ventura) · Apple Silicon or Intel
+- Accessibility permission (prompted on first launch)
+- For on-device AI: [Ollama](https://ollama.com) (auto-installed from the app)
+- For browser automation: Chrome + Node.js (auto-diagnosed, one-click install)
+
+---
+
+## FAQ
+
+<details>
+<summary><b>How do I set up AI?</b></summary>
+
+Settings → AI → Choose a provider:
+- **Gemini** — Free tier, recommended to start
+- **Ollama** — 100% free, local, no internet needed
+- **Claude / OpenAI** — API key required (paid)
+</details>
+
+<details>
+<summary><b>"Unidentified developer" warning?</b></summary>
+
+Latest versions are Apple signed + notarized. If you see this on an older version: `xattr -cr /Applications/BatiFlow.app`
+</details>
+
+<details>
+<summary><b>Accessibility permission not working?</b></summary>
+
+Both BatiFlow AND your terminal/editor need accessibility permission. Restart the app after granting.
+</details>
+
+<details>
+<summary><b>Does BatiFlow collect personal data?</b></summary>
+
+No. Message contents, contacts, and files stay 100% on your Mac. Only anonymous usage statistics (device ID, app version) are collected, and can be disabled in settings.
+</details>
+
+<details>
+<summary><b>Browser automation fails?</b></summary>
+
+Check Settings → AI → Browser. If Node.js shows ❌, click "Install Node.js". Chrome must also be installed. See [#3](https://github.com/batiai/batiflow-releases/issues/3) for details.
+</details>
+
+---
+
+<details>
+<summary><b>🇰🇷 한국어 상세 안내</b></summary>
 
 ## 이런 걸 할 수 있습니다
 
 ```
 "매일 아침 9시에 사내 어드민 들어가서 어제 매출 통계 캡처해서 팀 카톡에 보내줘"
-```
-```
 "김바티 대표한테 온 카톡 내용 요약해서 류바티한테 카톡으로 보내줘"
-```
-```
 "매주 월요일 10시에 팀 슬랙 #general에 주간 리포트 공지해줘"
 ```
-```
-"지금 보이는 웹페이지에서 상품 목록 가져와서 정리해줘"
-```
 
-AI에게 자연어로 말하면, **카카오톡 발송 · 메시지 읽기 · 브라우저 조작 · 반복 스케줄**까지 전부 자동으로 처리합니다.
+AI에게 자연어로 말하면, 카카오톡 발송 · 메시지 읽기 · 브라우저 조작 · 반복 스케줄까지 전부 자동 처리합니다.
 
-## BatiFlow의 시작
-
-BatiFlow는 **카카오톡 자동 발송**에서 시작했습니다.
-
-macOS에서 카카오톡 메시지를 자동으로 보내고, 읽고, 다중 수신자에게 맞춤 발송하는 기능을 — 비개발자도 UI로 쉽게 쓸 수 있게 만들어 무료로 배포했고, 좋은 반응을 받았습니다.
-
-그런데 요즘, AI 시대에 정말 좋은 기술들이 쏟아지고 있습니다. 도구(Tool), 스킬(Skill), 에이전트(Agent), 오픈소스 언어모델, 브라우저 자동화 — 개발자라면 바로 활용할 수 있지만, 비개발자에게는 여전히 허들이 높습니다.
-
-**BatiFlow는 이 기술들을 비개발자도 쉽게, 무료로 쓸 수 있도록 업그레이드했습니다.**
-
-카카오톡 발송은 물론이고, AI 채팅으로 자연어 명령, 브라우저 자동화, 반복 스케줄, 업무 녹화까지 — 클릭 몇 번이면 시작할 수 있습니다.
-
-## 카카오톡 자동화
-
-BatiFlow의 핵심 기능입니다. macOS에서 카카오톡을 직접 제어합니다.
-
-```
-"홍길동한테 카톡으로 회의 참석 알려줘"
-"김바티 대표한테 온 카톡 읽어서 요약해줘"
-"이바티 채팅방 메시지 요약해서 류바티한테 카톡으로 보내줘"
-```
+### 카카오톡 자동화
+BatiFlow는 macOS 접근성 API를 사용하여 카카오톡을 직접 제어합니다. 카카오톡은 공식 자동화 API가 없지만, BatiFlow는 화면 요소를 직접 조작하여 메시지 발송, 읽기, 대량 발송을 자동화합니다.
 
 - **메시지 발송** — 원하는 사람에게 카톡 자동 발송
-- **메시지 읽기 + AI 요약** — 채팅방 메시지 파싱 → AI가 요약 → 다른 사람에게 전달까지 가능
+- **메시지 읽기 + AI 요약** — 채팅방 메시지 파싱 → AI가 요약 → 다른 사람에게 전달
 - **다중 수신자** — 여러 명 선택 → `{name}`님 개별 메시지 일괄 전송
-- **오발송 방지** — 채팅창 제목 자동 검증 + 발송 중 조작 차단 + 연속 실패 자동 중단
+- **오발송 방지** — 채팅창 제목 자동 검증 + 발송 중 조작 차단
 - **Slack · iMessage** — 동일한 방식으로 통합 제어
 
-> 발송 탭에서 UI로 직접 보내거나, AI 채팅에서 자연어로 명령할 수 있습니다.
+### 온디바이스 AI — BatiAI 모델
+BatiAI가 직접 양자화한 Gemma 4, Qwen 3.5 모델을 클릭 몇 번으로 다운로드하여 Mac에서 바로 실행. 인터넷 없이도, API 키 없이도, 비용 없이 사용 가능. 데이터는 100% Mac에 머물고, 사용량 제한 없음.
 
-## 왜 BatiFlow인가?
+| 모델 | 크기 | M4 16GB 속도 | M4 Max 속도 | 대상 |
+|------|------|:----------:|:-----------:|------|
+| gemma4-e2b:q4 | 3.2 GB | 107.8 t/s | 132.5 t/s | 8 GB Mac |
+| gemma4-e4b:q4 | 5.0 GB | 57.1 t/s | 84.0 t/s | 8-16 GB Mac |
+| ⭐ qwen3.5-9b:q4 | 5.2 GB | 12.5 t/s | — | 16 GB Mac |
+| ⭐ gemma4-26b:iq4 | 13 GB | — | 93.6 t/s | 24 GB Mac |
+| gemma4-31b:iq4 | 16 GB | — | 22.8 t/s | 48 GB+ Mac |
 
-### 비개발자도 AI 자동화를 무료로
+앱이 자동으로 Mac RAM을 감지하여 최적 모델을 ⭐ 배지로 추천하고, 부족한 RAM 경고도 표시합니다.
 
-Zapier, Make 같은 자동화 도구는 월 $10~70이고, n8n은 Docker 설치가 필요합니다. Claude/ChatGPT의 도구 호출은 개발자 전용이고, **카카오톡 같은 데스크탑 앱을 직접 제어하는 건 어떤 도구도 지원하지 않습니다.**
+### macOS 네이티브 앱 제어
+캘린더(EventKit), 메모(AppleScript), 미리알림(EventKit), 메일(AppleScript), Finder — macOS 네이티브 프레임워크를 직접 사용하여 안정적으로 제어.
 
-BatiFlow는 이 모든 걸 **무료로, 비개발자도 쓸 수 있게** 만듭니다.
+### 외부 채널 연동
+Telegram Bot · Slack Bot · Discord Bot · Webhook(HTTP) — AI를 외부 메신저에서도 사용 가능.
 
-| | Zapier | Make | n8n | BatiFlow |
-|---|:---:|:---:|:---:|:---:|
-| **월 비용** | $20~69 | $11~29 | $24~60 | **무료** |
-| **카카오톡 직접 제어** | ❌ | ❌ | ❌ | **✅** |
-| **무료 AI (로컬)** | ❌ | ❌ | ⚠️ 설정 복잡 | **✅ 원클릭** |
-| **브라우저 자동화** | 제한적 | ✅ | ✅ | **✅ 로그인 유지** |
-| **비개발자 사용** | ✅ | ✅ | ⚠️ | **✅** |
-| **자연어 명령** | ⚠️ | ⚠️ | ⚠️ | **✅** |
-| **macOS 앱 제어** | ❌ | ❌ | ❌ | **✅** |
+### 브라우저 자동화
+Chrome을 직접 제어하여 로그인된 상태 그대로 사내 시스템을 자동화. Node.js 미설치 시 앱 내 원클릭 설치.
 
-### 100+ 오픈소스 AI 모델 — 완전 무료, 로컬 실행
-
-BatiFlow는 **Ollama**를 통해 100개 이상의 오픈소스 AI 모델을 Mac에서 직접 실행합니다. 인터넷 없이도, API 키 없이도, 비용 없이 사용할 수 있습니다.
-
-| 모델 | 크기 | 최소 RAM | 라이선스 | 용도 |
-|------|------|---------|---------|------|
-| **Gemma 4 E2B (Q4)** | 1.8 GB | 8 GB | Apache 2.0 | 초경량 채팅 |
-| **Gemma 4 E4B (Q4)** | 3 GB | 8 GB | Apache 2.0 | 간단한 작업 |
-| **Gemma 4 E4B** | 9.6 GB | 16 GB | Apache 2.0 | 고품질 작업 |
-| **Qwen 3.5 (9B)** | 6.6 GB | 16 GB | Apache 2.0 | 에이전트 추천 |
-| **Gemma 4 26B MoE** | 17 GB | 24 GB | Apache 2.0 | 빠른 에이전트 |
-| **Qwen 3.5 (27B)** | 17 GB | 24 GB | Apache 2.0 | 최강 에이전트 |
-| **Llama 4 Scout** | 12 GB | 16 GB | Llama 4 | 멀티모달 |
-
-> 설정에서 "Ollama 설치" 클릭 → 모델 선택 → 다운로드 — 끝. 채팅 중 모델을 자유롭게 전환할 수 있습니다.
-
-### 클라우드 AI도 지원
-
-| 프로바이더 | 비용 | 설정 |
-|-----------|------|------|
-| **Google Gemini** | **무료** (제한 있음) | API 키 붙여넣기 |
-| **Anthropic** | 유료 API | API 키 입력 |
-| **OpenAI** | 유료 API | API 키 입력 |
-
-> Ollama(무료 로컬) + Gemini(무료 클라우드) 조합이면 비용 0원으로 시작할 수 있습니다.
-
-### 내 업무를 녹화하면 AI가 반복해줍니다
-
-1. **녹화** 버튼을 누르고 평소처럼 업무를 수행합니다 (클릭, 타이핑 등)
-2. BatiFlow가 작업 순서를 **자동 기록**합니다
-3. 기록된 워크플로를 **스킬로 변환** → 이후 AI가 대신 실행
-4. **스케줄 등록** → 매일/매주 자동 반복
-
-브라우저 자동화(CDP)를 활용하면 **로그인이 필요한 사내 시스템**도 기존 세션을 유지한 채 자동화할 수 있습니다.
-
-## 실제 활용 예시
-
-| 분류 | 명령 예시 |
-|------|----------|
-| **카톡 발송** | "홍길동한테 카톡으로 회의 참석 알려줘" |
-| **카톡 읽기 + 전달** | "김바티 대표한테 온 카톡 읽어서 요약해서 류바티한테 보내줘" |
-| **Slack** | "팀 슬랙 #general에 배포 완료 공지해줘" |
-| **iMessage** | "010-1234-5678에 iMessage로 확인 부탁드린다고 보내줘" |
-| **브라우저 + 발송** | "사내 어드민에서 어제 매출 가져와서 팀 카톡에 보내줘" |
-| **반복 스케줄** | "매일 아침 9시에 일일 리포트 발송해줘" |
-| **일회성 예약** | "오늘 저녁 7시에 바티AI한테 인사 보내줘" → 실행 후 자동 삭제 |
-| **스킬 생성** | "매일 아침 팀 리포트 보내는 자동화 만들어줘" |
-| **브라우저 자동화** | "네이버 접속해서 상품 리뷰 확인해줘" |
-| **캘린더** | "이번주 일정 뭐 있어?" / "내일 3시에 회의 잡아줘" |
-| **파일 관리** | "다운로드 폴더에 뭐 있어?" / "이 PDF 요약해줘" |
-| **메모/알림** | "회의록 메모해줘" / "내일까지 리포트 알림 만들어줘" |
-| **시스템** | "볼륨 30%로 줄여줘" / "미리알림 앱 열어줘" |
-
----
-
-## 주요 기능
-
-### AI 채팅
-- **자연어 명령** → "카톡 보내줘", "일정 확인해줘", "파일 정리해줘" — AI가 49개 도구 중 자동 선택
-- **후속 제안** — AI 응답 후 클릭 가능한 추천 명령 2~3개 표시
-- **스마트 도구 라우팅** — 프롬프트 분석 → 관련 도구만 AI에 전달 (토큰 60%+ 절약)
-- **에이전트 모드** — 메신저/브라우저/복합 작업별 최적화 자동 감지
-- **멀티 프로바이더** — Claude, OpenAI, Gemini, Ollama, Claude Max — 채팅에서 모델 즉시 전환
-- **마크다운 렌더링** — 헤딩, 테이블, 코드블록(복사), 체크박스, 인용문
-- **대화 관리** — 검색, Markdown 내보내기, 말풍선 복사
-
-### 메시지 자동화
-- **카카오톡 · Slack · iMessage** — 하나의 앱에서 통합 제어
-- **카카오톡 고속 탐색** — AX 경로 캐시로 반복 작업 50%+ 속도 향상
-- **iMessage 안정 읽기** — chat.db 직접 읽기 (앱 활성화 불필요, 100% 안정)
-- **다중 수신자 맞춤 발송** — 여러 명 선택 → `{name}`님 개별 메시지 일괄 전송
-- **메시지 읽기 + AI 요약** — 채팅방 메시지 파싱 → AI 요약 → 다른 사람에게 전달
-- **오발송 방지** — 채팅창 제목 자동 검증 + 발송 중 조작 차단
-
-### 파일/문서 관리
-- **파일 목록/읽기/쓰기/이동/삭제/검색** — 자연어로 파일 시스템 제어
-- **문서 읽기** — PDF, xlsx, docx, pptx, html 텍스트 추출 + AI 분석
-- **대용량 전처리** — CSV 헤더+샘플, 로그 최근 100줄 등 로컬에서 요약 후 AI 전달 (토큰 절약)
-
-### macOS 앱 제어
-- **캘린더** — "이번주 일정 알려줘", "내일 3시에 회의 잡아줘"
-- **메모** — "회의록 메모해줘", "최근 메모 검색해줘"
-- **미리알림** — "내일까지 리포트 알림 만들어줘", "할일 완료 처리"
-- **메일** — "김바티한테 메일 보내줘" (첨부 파일 지원)
-- **시스템** — 볼륨/밝기 조절, 스크린샷, 셸 명령 실행
-- **Finder** — 파일 열기, 앱 실행, 압축, 태그 설정
+### 통계 & 벤치마크
+로컬 모델 속도(tok/s) 모니터링, AI 호출 수/세션 시간 분석, 동일 칩셋 사용자 대비 전 세계 평균 비교.
 
 ### 도구 / 스킬 / 스케줄
-- **49개 내장 도구** — 메신저, 브라우저, 파일, 캘린더, 메모, 시스템 등
-- **시각적 관리** — 도구 목록 조회, 카테고리 필터, 파라미터 확인, 즉시 실행 테스트
-- **AI로 스킬 생성** — "매일 리포트 보내는 자동화 만들어줘" → 스킬 자동 생성
-- **인라인 편집** — 앱 내에서 스킬 직접 수정 + 즉시 적용
-- **스킬 패키지(.bfskill)** — ZIP으로 내보내기/가져오기/공유
-- **일회성 vs 반복** — AI가 자동 판단, 일회성은 실행 후 삭제
-- **스케줄러** — 시간 예약, 활성/비활성 필터, macOS 알림, 실행 기록
+- 70+ 내장 도구 · YAML 커스텀 도구 · 멀티스텝 워크플로(스킬) · cron 스케줄러
+- 화면 녹화 → 스킬 변환 · 스킬 패키지(.bfskill) 공유 · 플로팅 모드 (⌘⇧Space)
 
-### 브라우저 자동화 (CDP)
-- **Chrome 직접 제어** — 페이지 이동, 클릭, 입력, 스크린샷 — AI 채팅에서 자연어로 명령 가능
-- **로그인 세션 유지** — 기존에 로그인된 상태 그대로 자동화 (사내 시스템, 쇼핑몰 어드민 등)
-- **네트워크 API 캡처** — 웹사이트의 API 요청/응답 실시간 모니터링
-- **메신저 연계** — 브라우저에서 가져온 데이터를 AI가 정리해서 카톡/슬랙으로 전송
+### 설치
+1. [다운로드](https://github.com/batiai/batiflow-releases/releases/latest) → Applications로 드래그 → 접근성 권한 허용
+2. 설정 → AI → Gemini(무료) 또는 Ollama(로컬) 선택
 
-### AI 비용 + 권한 + 메모리
-- **비용 추적** — 채팅 입력창에 토큰/비용 실시간 표시 (Ollama/ClaudeMax = 무료)
-- **도구 권한** — 자동/확인/차단 3단계 설정 (카톡 발송 = 실행 전 확인)
-- **AI 메모리** — 대화에서 자동 학습, 다음 세션에서 활용
-- **자동화 Hook** — 도구 실행 전후 알림/확인/로그/Webhook 설정
+### 개인정보
+메시지 내용, 연락처 등 개인정보 수집 없음. 모든 데이터는 Mac에만 저장.
 
-### 기타
-- **온보딩 가이드** — 첫 실행 시 5단계 안내 (Gemini 무료 키 발급까지)
-- **다크/라이트 테마** — 적응형 색상 시스템 (시스템/다크/라이트 선택)
-- **설정 검색** — 키워드로 설정 섹션 필터링
-- **MCP 연동** — Claude Code / Cursor에서 원클릭 설정 (메신저 + 브라우저 + 파일 + 캘린더 + 메모 + 미리알림 21개 도구)
-- **플로팅 모드** — ⌘⇧Space로 어디서든 AI 커맨드 패널 호출
-- **화면 녹화 → 스킬** — 클릭/타이핑을 녹화하면 재사용 가능한 자동화로 변환
-- **주소록** — 카카오톡 친구 자동 가져오기, 그룹 관리, 검색
-- **로컬 기반** — 모든 데이터는 Mac에만 저장, 개인정보 외부 전송 없음
-
-## 설치
-
-### Homebrew
-
-```bash
-brew install batiai/tap/batiflow
-```
-
-### npm (MCP 서버)
-
-```bash
-npx batiflow-mcp
-```
-
-
-> macOS 13 (Ventura) 이상 · Apple Silicon & Intel · 서명 + 공증 완료
-
-### DMG 다운로드
-
-1. **[최신 버전 다운로드](https://github.com/batiai/batiflow-releases/releases/latest)**
-2. DMG 열기 → `BatiFlow`를 `Applications`로 드래그
-3. BatiFlow 실행
-
-### 터미널 설치
-
-```bash
-curl -sL https://flow.bati.ai/install.sh | bash
-```
-
-### 필수: 접근성 권한
-
-1. **시스템 설정** > **개인정보 보호 및 보안** > **접근성**
-2. **BatiFlow** + **터미널/에디터** 모두 허용
-3. 권한 변경 후 앱 재시작
-
-### AI 설정
-
-1. 설정 → AI 설정 → 프로바이더 카드 클릭 → API 키 입력
-2. 무료로 시작: **Gemini**(무료 티어) 또는 **Ollama**(로컬)
-3. 채팅에서 모델 전환하며 사용
-
-## 사용법
-
-### AI 채팅 (메인)
-
-자연어로 명령 → AI가 도구 자동 선택 + 실행:
-
-```
-"홍길동한테 카톡으로 회의 참석 알려줘"
-"매일 9시에 팀 리포트 보내는 스킬 만들어줘"
-```
-
-### 발송 탭
-
-앱 선택 → 수신자 체크 → 메시지 입력 → ⌘+Enter 발송
-
-### 자동화 탭
-
-| 서브탭 | 설명 |
-|--------|------|
-| **도구** | 등록된 도구 (카테고리 필터, 즉시 실행) |
-| **스킬** | 멀티스텝 워크플로 (편집, 내보내기/가져오기) |
-| **스케줄** | 예약 실행 (활성/비활성 필터, 시간 편집) |
-| **녹화** | 화면 녹화 → 스킬 변환 |
-| **기록** | 실행 로그 (상세 내역) |
-
-### CLI
-
-```bash
-batiflow-cli send "홍길동" "안녕하세요"
-batiflow-cli read "홍길동" --limit 50
-batiflow-cli send "#general" "공지사항입니다" --app slack
-```
-
-## MCP 연동 (Claude Code / Cursor)
-
-설정 → MCP 연동 → 폴더 선택 → 적용 → Claude Code 재시작
-
-### 메신저 도구
-
-| 도구 | 설명 |
-|------|------|
-| `batiflow_send` | 메시지 발송 (카카오톡/Slack/iMessage) |
-| `batiflow_read` | 채팅방 메시지 읽기 |
-| `batiflow_send_bulk` | 그룹 일괄 발송 |
-| `batiflow_chats` | 채팅 목록 조회 |
-| `batiflow_friends` | 카카오톡 친구 목록 |
-| `batiflow_contacts` | 주소록 조회 |
-
-### 브라우저 도구
-
-| 도구 | 설명 |
-|------|------|
-| `batiflow_browser_navigate` | URL 이동 |
-| `batiflow_browser_click` | 요소 클릭 |
-| `batiflow_browser_get_text` | 페이지 텍스트 추출 |
-| `batiflow_browser_screenshot` | 스크린샷 캡처 |
-| `batiflow_browser_evaluate` | JavaScript 실행 |
-| `batiflow_browser_page_info` | 현재 페이지 정보 |
-
-### macOS 네이티브 도구
-
-| 도구 | 설명 |
-|------|------|
-| `batiflow_file_read` | 파일 읽기 (PDF/XLSX/DOCX/PPTX 텍스트 추출) |
-| `batiflow_file_write` | 파일 생성/수정 |
-| `batiflow_file_search` | 파일명/내용 검색 |
-| `batiflow_calendar_list` | 캘린더 일정 조회 |
-| `batiflow_calendar_create` | 일정 생성 |
-| `batiflow_notes_create` | 메모 생성 |
-| `batiflow_notes_search` | 메모 검색 |
-| `batiflow_reminders_create` | 미리알림 생성 |
-| `batiflow_system_shell` | 셸 명령 실행 |
-
-> Claude Code에서 "이번주 일정 확인해서 정리해줘", "다운로드 폴더 PDF 요약해서 메모에 저장해줘" 같은 명령도 가능합니다.
-
-## 스킬 패키지
-
-스킬을 `.bfskill` 파일로 공유할 수 있습니다:
-
-- **내보내기**: 스킬 선택 → 내보내기 → `.bfskill` 파일 저장
-- **가져오기**: 가져오기 → `.bfskill` 파일 선택 → 즉시 설치
-
-## 지원 현황
-
-| 앱 | 발송 | 읽기 | 채팅 목록 | 친구 목록 | 방식 |
-|----|:---:|:---:|:-------:|:-------:|------|
-| 카카오톡 | ✅ | ✅ | ✅ | ✅ | AX API |
-| Slack | ✅ | — | ⚠️ | — | Cmd+K + Clipboard |
-| iMessage | ✅ | — | ✅ | — | AppleScript + AX |
-
-## FAQ
-
-<details>
-<summary><b>AI 설정이 필요하다고 나와요</b></summary>
-
-설정 → AI 설정에서 프로바이더 API 키를 등록하세요.
-무료로 시작하려면 **Google Gemini** (무료 티어) 또는 **Ollama** (로컬, 완전 무료)를 추천합니다.
 </details>
-
-<details>
-<summary><b>"확인되지 않은 개발자" 경고가 나와요</b></summary>
-
-최신 버전은 Apple 서명 + 공증 적용으로 경고가 나오지 않습니다.
-이전 버전이면: `xattr -cr /Applications/BatiFlow.app`
-</details>
-
-<details>
-<summary><b>접근성 권한을 줬는데 동작하지 않아요</b></summary>
-
-BatiFlow + 사용 중인 **터미널/에디터** 모두 접근성 허용이 필요합니다. 권한 변경 후 앱을 재시작하세요.
-</details>
-
-<details>
-<summary><b>발송 중 멈추거나 오류가 나요</b></summary>
-
-1. 카카오톡이 로그인 상태인지 확인
-2. 비밀번호 잠금 해제
-3. 설정에서 발송 속도를 "느림"으로 조절
-</details>
-
-<details>
-<summary><b>개인정보를 수집하나요?</b></summary>
-
-메시지 내용, 연락처 등 개인정보는 **수집하지 않습니다**. 모든 데이터는 사용자의 Mac에만 저장됩니다. 익명 사용 통계(기기 ID, 앱 버전)만 수집하며, 설정에서 비활성화 가능합니다.
-</details>
-
-## 피드백
-
-버그 리포트, 기능 제안, 질문:
-- [GitHub Issues](https://github.com/batiai/batiflow-releases/issues)
 
 ---
 
