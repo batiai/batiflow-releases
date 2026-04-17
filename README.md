@@ -73,23 +73,27 @@ BatiFlow auto-detects your Mac's RAM and recommends the best model. No terminal 
 [BatiAI](https://huggingface.co/batiai) self-quantized models optimized for Apple Silicon. One-click download from the app — no terminal needed.
 
 | Model | Size | M4 16GB | M3 24GB | M4 Max 128GB | Best for |
-|-------|------|:-------:|:------------:|----------|
+|-------|------|:-------:|:------:|:------------:|----------|
 | [batiai/gemma4-e2b:q4](https://huggingface.co/batiai/gemma-4-E2B-it-GGUF) | 3.2 GB | 107.8 t/s | — | 132.5 t/s | 8 GB Mac · Ultra light |
 | [batiai/gemma4-e4b:q4](https://huggingface.co/batiai/gemma-4-E4B-it-GGUF) | 5.0 GB | 57.1 t/s | — | 84.0 t/s | 8-16 GB Mac |
 | ⭐ [batiai/qwen3.5-9b:q4](https://ollama.com/batiai/qwen3.5-9b) | 5.2 GB | 12.5 t/s | — | 50.0 t/s | **16 GB Mac · Best for tool calling** |
 | [batiai/qwen3.5-9b:q6](https://ollama.com/batiai/qwen3.5-9b) | 6.9 GB | — | — | 39.2 t/s | 16 GB Mac · Higher quality |
 | ⭐ [batiai/gemma4-26b:iq4](https://ollama.com/batiai/gemma4-26b) | 13 GB | — | **17 t/s** | **93.6 t/s** | **24 GB Mac · MoE · Fastest** |
 | [batiai/gemma4-26b:q4](https://ollama.com/batiai/gemma4-26b) | 16 GB | — | — | 74.9 t/s | 32 GB Mac · Highest quality |
-| [batiai/gemma4-31b:iq4](https://ollama.com/batiai/gemma4-31b) | 16 GB | — | 22.8 t/s | 48 GB+ Mac · 256K context |
+| [batiai/qwen3.6-35b:iq3](https://ollama.com/batiai/qwen3.6-35b) | 14 GB | — | — | 45.9 t/s | 24 GB+ Mac · MoE · 256K context |
+| ⭐ [batiai/qwen3.6-35b:iq4](https://ollama.com/batiai/qwen3.6-35b) | 19 GB | — | — | **46.5 t/s** | **32 GB+ Mac · New flagship · 256K context** |
+| [batiai/qwen3.6-35b:q4](https://ollama.com/batiai/qwen3.6-35b) | 19 GB | — | — | — | 48 GB+ Mac · Highest quality |
+| [batiai/gemma4-31b:iq4](https://ollama.com/batiai/gemma4-31b) | 16 GB | — | — | 22.8 t/s | 48 GB+ Mac · Dense · 256K context |
 | [batiai/gemma4-31b:iq3](https://ollama.com/batiai/gemma4-31b) | 13 GB | — | — | 20.7 t/s | 48 GB+ Mac · Smaller |
 
 > All benchmarks measured with `ollama run --verbose`. Real-world speeds on your Mac.
 
 ```bash
 # Install from terminal (or just click "Download" in the app)
-ollama pull batiai/qwen3.5-9b:q4      # 16 GB Mac
-ollama pull batiai/gemma4-26b:iq4     # 24 GB Mac
-ollama pull batiai/gemma4-31b:iq4     # 48 GB+ Mac
+ollama pull batiai/qwen3.5-9b:q4       # 16 GB Mac
+ollama pull batiai/gemma4-26b:iq4      # 24 GB Mac
+ollama pull batiai/qwen3.6-35b:iq4     # 32 GB+ Mac — new flagship
+ollama pull batiai/gemma4-31b:iq4      # 48 GB+ Mac · dense model
 ```
 
 Your data never leaves your Mac. 🔒
