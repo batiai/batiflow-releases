@@ -121,21 +121,23 @@ Three sources blended via Reciprocal Rank Fusion with weighted ranking.
 
 [BatiAI](https://huggingface.co/batiai) self-quantized models optimized for Apple Silicon. One-click download from the app — no terminal needed.
 
-| Model | Size | M4 16GB | M3 24GB | M4 Max 128GB | Best for |
-|-------|------|:-------:|:------:|:------------:|----------|
-| [batiai/gemma4-e2b:q4](https://huggingface.co/batiai/gemma-4-E2B-it-GGUF) | 3.2 GB | 107.8 t/s | — | 132.5 t/s | 8 GB Mac · Ultra light |
-| [batiai/gemma4-e4b:q4](https://huggingface.co/batiai/gemma-4-E4B-it-GGUF) | 5.0 GB | 57.1 t/s | — | 84.0 t/s | 8-16 GB Mac |
-| ⭐ [batiai/qwen3.5-9b:q4](https://ollama.com/batiai/qwen3.5-9b) | 5.2 GB | 12.5 t/s | — | 50.0 t/s | **16 GB Mac · Best for tool calling** |
-| [batiai/qwen3.5-9b:q6](https://ollama.com/batiai/qwen3.5-9b) | 6.9 GB | — | — | 39.2 t/s | 16 GB Mac · Higher quality |
-| ⭐ [batiai/gemma4-26b:iq4](https://ollama.com/batiai/gemma4-26b) | 13 GB | — | **17 t/s** | **93.6 t/s** | **24 GB Mac · MoE · Fastest** |
-| [batiai/gemma4-26b:q4](https://ollama.com/batiai/gemma4-26b) | 16 GB | — | — | 74.9 t/s | 32 GB Mac · Highest quality |
-| [batiai/qwen3.6-35b:iq3](https://ollama.com/batiai/qwen3.6-35b) | 14 GB | — | — | 45.9 t/s | 24 GB+ Mac · MoE · 256K context |
-| ⭐ [batiai/qwen3.6-35b:iq4](https://ollama.com/batiai/qwen3.6-35b) | 19 GB | — | — | **46.5 t/s** | **32 GB+ Mac · New flagship · 256K context** |
-| [batiai/qwen3.6-35b:q4](https://ollama.com/batiai/qwen3.6-35b) | 19 GB | — | — | — | 48 GB+ Mac · Highest quality |
-| [batiai/gemma4-31b:iq4](https://ollama.com/batiai/gemma4-31b) | 16 GB | — | — | 22.8 t/s | 48 GB+ Mac · Dense · 256K context |
-| [batiai/gemma4-31b:iq3](https://ollama.com/batiai/gemma4-31b) | 13 GB | — | — | 20.7 t/s | 48 GB+ Mac · Smaller |
+> 📊 **Community-measured benchmarks** — 80+ unique Apple Silicon devices, 700+ samples, M1 → M5 coverage. Numbers below are **median (p50)** from real users' Macs, not synthetic.
 
-> All benchmarks measured with `ollama run --verbose`. Real-world speeds on your Mac.
+| Model | Size | M4 16GB | M4 24GB | M4 Max | M5 Max | Best for |
+|-------|------|:-------:|:-------:|:------:|:------:|----------|
+| [batiai/gemma4-e2b:q4](https://huggingface.co/batiai/gemma-4-E2B-it-GGUF) | 3.2 GB | **52.7** ¹ | — | **121.3** ⁵ | — | 8 GB Mac · Ultra light |
+| [batiai/gemma4-e4b:q4](https://huggingface.co/batiai/gemma-4-E4B-it-GGUF) | 5.0 GB | **28** ² | — | **83** ⁶ | **37** | 8-16 GB Mac |
+| ⭐ [batiai/qwen3.5-9b:q4](https://ollama.com/batiai/qwen3.5-9b) | 5.2 GB | **12.8** ³ | — | **43** ⁷ | **15.1** | **16 GB Mac · Best for tool calling** |
+| ⭐ [batiai/gemma4-26b:iq4](https://ollama.com/batiai/gemma4-26b) | 13 GB | — | **30.8** ⁴ | **81.3** ⁸⭐ | **99.1** ⁹ | **24 GB+ Mac · MoE · Fastest** |
+| [batiai/gemma4-26b:q4](https://ollama.com/batiai/gemma4-26b) | 16 GB | — | — | **65.1** | — | 32 GB Mac · Highest quality |
+| ⭐ [batiai/qwen3.6-35b:iq4](https://ollama.com/batiai/qwen3.6-35b) | 19 GB | — | — | **37.4** ¹⁰ | — | **32 GB+ Mac · Flagship · 256K context** |
+| [batiai/qwen3.6-35b:q4](https://ollama.com/batiai/qwen3.6-35b) | 19 GB | — | — | — | **60.5** ¹¹ | 48 GB+ Mac · Highest quality |
+| [batiai/qwen3.6-35b:iq3](https://ollama.com/batiai/qwen3.6-35b) | 14 GB | — | M4 Pro **27** | — | — | 24 GB+ Mac · Smaller MoE |
+| [batiai/gemma4-31b:iq4](https://ollama.com/batiai/gemma4-31b) | 16 GB | — | — | **16.4** | M5 Pro 48GB **14.2** | 48 GB+ Mac · Dense · 256K context |
+
+<sub>Sample counts (community submissions): ¹ 28 samples · 3 devices  ² 35 samples · 3 devices  ³ 20 samples · 2 devices  ⁴ 30 samples · 1 device  ⁵ 39 samples · 1 device (M4 Max 128GB)  ⁶ 14 samples (M4 Max 128GB)  ⁷ 9 samples (M4 Max 128GB)  ⁸ **78 samples · M4 Max 48GB** — most-tested config  ⁹ 9 samples (M5 Max 64GB)  ¹⁰ 28 samples (M4 Max 128GB)  ¹¹ 41 samples · 2 devices (M5 Max 64GB)</sub>
+
+> Numbers measured by BatiFlow's built-in `ollama run --verbose` reporter, automatically aggregated when telemetry is on (opt-out from Settings → Info).
 
 ```bash
 # Install from terminal (or just click "Download" in the app)
@@ -190,7 +192,8 @@ Connect AI to external messaging platforms — BatiFlow becomes your AI agent on
 ### 📊 Statistics & Benchmarks
 - LLM performance monitoring (tok/s per model)
 - Usage analytics (AI calls, session time, tool breakdown)
-- Global benchmark comparison — see how your Mac performs vs others with the same chip
+- **Global benchmark comparison** — see how your Mac performs vs the community (80+ Apple Silicon devices, 700+ samples, M1 → M5)
+- Auto-submit your `ollama run --verbose` runs to the community pool (opt-out from Settings → Info)
 
 ### 🛠 Extensible
 - **YAML custom tools** — Add your own tools without writing code
@@ -360,15 +363,22 @@ BatiFlow는 macOS 접근성 API를 사용하여 카카오톡을 직접 제어합
 - **Slack · iMessage** — 동일한 방식으로 통합 제어
 
 ### 온디바이스 AI — BatiAI 모델
-BatiAI가 직접 양자화한 Gemma 4, Qwen 3.5 모델을 클릭 몇 번으로 다운로드하여 Mac에서 바로 실행. 인터넷 없이도, API 키 없이도, 비용 없이 사용 가능. 데이터는 100% Mac에 머물고, 사용량 제한 없음.
+BatiAI가 직접 양자화한 Gemma 4, Qwen 3.5/3.6 모델을 클릭 몇 번으로 다운로드하여 Mac에서 바로 실행. 인터넷 없이도, API 키 없이도, 비용 없이 사용 가능. 데이터는 100% Mac에 머물고, 사용량 제한 없음.
 
-| 모델 | 크기 | M4 16GB 속도 | M4 Max 속도 | 대상 |
-|------|------|:----------:|:-----------:|------|
-| gemma4-e2b:q4 | 3.2 GB | 107.8 t/s | — | 132.5 t/s | 8 GB Mac |
-| gemma4-e4b:q4 | 5.0 GB | 57.1 t/s | — | 84.0 t/s | 8-16 GB Mac |
-| ⭐ qwen3.5-9b:q4 | 5.2 GB | 12.5 t/s | — | 16 GB Mac |
-| ⭐ gemma4-26b:iq4 | 13 GB | — | 93.6 t/s | 24 GB Mac |
-| gemma4-31b:iq4 | 16 GB | — | 22.8 t/s | 48 GB+ Mac |
+> 📊 **커뮤니티 측정 벤치마크** — Apple Silicon **80+ 디바이스**, **700+ 샘플**, **M1 → M5 전 세대** 커버. 아래 수치는 실사용자의 Mac에서 측정한 **중앙값(p50)**.
+
+| 모델 | 크기 | M4 16GB | M4 24GB | M4 Max | M5 Max | 대상 |
+|------|------|:-------:|:-------:|:------:|:------:|------|
+| gemma4-e2b:q4 | 3.2 GB | **52.7** | — | **121.3** | — | 8 GB Mac · 초경량 |
+| gemma4-e4b:q4 | 5.0 GB | **28** | — | **83** | **37** | 8-16 GB Mac |
+| ⭐ qwen3.5-9b:q4 | 5.2 GB | **12.8** | — | **43** | **15.1** | **16 GB Mac · Tool calling 최적** |
+| ⭐ gemma4-26b:iq4 | 13 GB | — | **30.8** | **81.3** ⭐ | **99.1** | **24 GB+ Mac · MoE · 가장 빠름** |
+| gemma4-26b:q4 | 16 GB | — | — | **65.1** | — | 32 GB Mac · 최고 품질 |
+| ⭐ qwen3.6-35b:iq4 | 19 GB | — | — | **37.4** | — | **32 GB+ Mac · 플래그십 · 256K context** |
+| qwen3.6-35b:q4 | 19 GB | — | — | — | **60.5** | 48 GB+ Mac · 최고 품질 |
+| gemma4-31b:iq4 | 16 GB | — | — | **16.4** | M5 Pro **14.2** | 48 GB+ Mac · Dense · 256K |
+
+⭐ **M4 Max 48GB · gemma4-26b:iq4 — 81.3 t/s**는 **78개 샘플**로 가장 많이 검증된 구성입니다.
 
 앱이 자동으로 Mac RAM을 감지하여 최적 모델을 ⭐ 배지로 추천하고, 부족한 RAM 경고도 표시합니다.
 
