@@ -18,6 +18,55 @@ Control any macOS app through natural language — even apps without APIs.
 
 ---
 
+## 🎬 See it in action
+
+<table>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <a href="https://flow.bati.ai/demos/rag-search.mp4" target="_blank">
+        <img src="demos/rag-search.jpg" alt="Folder Search · Local RAG demo" width="100%">
+      </a>
+      <br>
+      <strong>📂 Folder Search · Local RAG</strong> &nbsp; <em>NEW v0.9.0</em>
+      <br>
+      <sub>Drop a folder. Search by filename, body, or meaning. Korean filenames work out of the box (NFD normalization · whitespace equivalence). 100% on-device.</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <a href="https://flow.bati.ai/demos/kakao-automation.mp4" target="_blank">
+        <img src="demos/kakao-automation.jpg" alt="KakaoTalk Automation demo" width="100%">
+      </a>
+      <br>
+      <strong>💬 KakaoTalk Automation</strong>
+      <br>
+      <sub>"Summarize KakaoTalk every 9am" — read, AI summary, send, schedule. Combine with browser automation: search Google → screenshot → KakaoTalk image.</sub>
+    </td>
+  </tr>
+  <tr>
+    <td width="50%" align="center" valign="top">
+      <a href="https://flow.bati.ai/demos/on-device-ai.mp4" target="_blank">
+        <img src="demos/on-device-ai.jpg" alt="On-device AI demo" width="100%">
+      </a>
+      <br>
+      <strong>🤖 On-device AI · macOS native</strong>
+      <br>
+      <sub>Local AI writes code → saves the result file → opens in Finder → checks schedule → registers a calendar event. Native macOS tools controlled by natural language.</sub>
+    </td>
+    <td width="50%" align="center" valign="top">
+      <a href="https://flow.bati.ai/demos/telegram-bridge.mp4" target="_blank">
+        <img src="demos/telegram-bridge.jpg" alt="External Channels demo" width="100%">
+      </a>
+      <br>
+      <strong>📡 External Channels · Telegram Bridge</strong>
+      <br>
+      <sub>Call your Mac's local AI from anywhere via Telegram Bot in a few clicks. Execution logs auto-synced. Discord and Webhooks supported too.</sub>
+    </td>
+  </tr>
+</table>
+
+<sub>👉 Click any thumbnail to play the MP4. All four workflows run 100% on your Mac — no cloud, no account.</sub>
+
+---
+
 ## Why BatiFlow?
 
 | | BatiFlow | ChatGPT / Claude | Zapier / Make / n8n | Spotlight |
@@ -120,6 +169,8 @@ Three sources blended via Reciprocal Rank Fusion with weighted ranking.
 ## On-device AI — BatiAI Quantized Models
 
 [BatiAI](https://huggingface.co/batiai) self-quantized models optimized for Apple Silicon. One-click download from the app — no terminal needed.
+
+> 🤗 **49,000+ downloads** across 25+ BatiAI models on [HuggingFace](https://huggingface.co/batiai) and [Ollama](https://ollama.com/batiai) — quantized from Google/Alibaba official weights for Apple Silicon.
 
 > 📊 **Community-measured benchmarks** — 80+ unique Apple Silicon devices, 700+ samples, M1 → M5 coverage. Numbers below are **median (p50)** from real users' Macs, not synthetic.
 
