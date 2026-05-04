@@ -2,10 +2,11 @@
 
 # BatiFlow
 
-**On-device AI desktop automation for Mac** — free, private, unlimited.
+**On-device AI desktop automation + local RAG search for Mac** — free, private, unlimited.
 
-Run open-source AI models locally on your Mac with a few clicks. No cloud, no API keys, no cost.
+Run open-source AI models locally with a few clicks. No cloud, no API keys, no cost.
 Control any macOS app through natural language — even apps without APIs.
+**NEW in v0.9.0:** Search inside your folders by filename, body keyword, or meaning. Korean filenames work out of the box.
 
 [![Release](https://img.shields.io/github/v/release/batiai/batiflow-releases?style=flat-square&color=5994FF)](https://github.com/batiai/batiflow-releases/releases/latest)
 [![macOS](https://img.shields.io/badge/macOS-13%2B-000?style=flat-square&logo=apple)](https://github.com/batiai/batiflow-releases/releases/latest)
@@ -19,15 +20,17 @@ Control any macOS app through natural language — even apps without APIs.
 
 ## Why BatiFlow?
 
-| | BatiFlow | ChatGPT / Claude | Zapier / Make / n8n |
-|--|---------|-----------------|---------------------|
-| **Cost** | Free forever | $20/month | $11-69/month |
-| **Privacy** | 🔒 100% on your Mac | Data sent to cloud | Data sent to cloud |
-| **Limits** | Unlimited | Rate limited | Task limited |
-| **Desktop app control** | KakaoTalk, Slack, Chrome, Calendar... | Chat only | No desktop apps |
-| **Apps without APIs** | ✅ via macOS Accessibility | ❌ | ❌ |
-| **Local AI** | One-click setup | ❌ | ⚠️ Complex |
-| **Non-developer friendly** | GUI — no code needed | API/prompt only | Workflow builder |
+| | BatiFlow | ChatGPT / Claude | Zapier / Make / n8n | Spotlight |
+|--|---------|-----------------|---------------------|---------|
+| **Cost** | Free forever | $20/month | $11-69/month | Free (built-in) |
+| **Privacy** | 🔒 100% on your Mac | Data sent to cloud | Data sent to cloud | 🔒 Local |
+| **Limits** | Unlimited | Rate limited | Task limited | — |
+| **Desktop app control** | KakaoTalk, Slack, Chrome, Calendar... | Chat only | No desktop apps | ❌ |
+| **Apps without APIs** | ✅ via macOS Accessibility | ❌ | ❌ | ❌ |
+| **Local AI** | One-click setup | ❌ | ⚠️ Complex | ❌ |
+| **Local RAG search** | ✅ filename + body + semantic | ⚠️ cloud-only | ❌ | ❌ filename only |
+| **Korean filenames** | ✅ NFD/NFC + bigram fallback | ⚠️ varies | ❌ | ❌ broken |
+| **Non-developer friendly** | GUI — no code needed | API/prompt only | Workflow builder | GUI |
 
 ---
 
@@ -68,6 +71,52 @@ BatiFlow auto-detects your Mac's RAM and recommends the best model. No terminal 
 
 ---
 
+## 🔍 Knowledge Search — Local RAG over your Mac folders _(NEW in v0.9.0)_
+
+Spotlight ignores file contents. BatiFlow indexes them. Drag a folder, search by **filename**, **body keyword**, or **meaning**.
+
+```
+"이력서.pdf" → 정확히 매칭 (한국어 NFD 정규화)
+"마녀공장" → "마녀 공장.pdf"도 매칭 (whitespace equivalence)
+"Q4 매출 보고" → 본문 BM25 + 의미 검색 hybrid
+```
+
+### Five search modes
+**auto** / **filename** / **content** (BM25 / FTS5) / **semantic** (vector / sqlite-vec) / **hybrid** (RRF)
+Three sources blended via Reciprocal Rank Fusion with weighted ranking.
+
+### Korean-first text handling
+- **NFD/NFC normalization** at every DB write + query — APFS stores Korean filenames decomposed (`이력서` → `ㅇㅣᆯᅧᆨㅅᅥ`); BatiFlow normalizes both directions
+- **Multi-word + CJK whitespace equivalence** — `"마녀 공장"` ≡ `"마녀공장"` automatically; bigram fallback for partial-token cases
+- **Reverse split** — `"홍길동연구소"` matches `"홍길동 연구소.pdf"`
+- **T3 filename-only tier** — `.png` / `.dmg` / `.zip` / `.xlsm` indexed for filename search even when body parser unavailable
+
+### On-device embedding (optional)
+- **`batiai/qwen3-embedding`** via Ollama — 0.6B (recommended) / 4B / 8B, all 1024-dim via Qwen3 MRL
+- Filename prepended to chunk embedding — domain-specific nouns become topic anchors
+
+### Qwen3-Reranker dedicated cross-encoder
+- 0.6B model matches 35B generic LLM accuracy (pairwise binary fine-tune)
+- Settings preset menu — Cross-encoder / Generic LLM grouped picks
+
+### Finder-style UI
+- **⌘K global search** from anywhere · **Space Quick Look** preview · **↑↓ keyboard navigation** (Spotlight pattern)
+- Source badge per result (filename / body / semantic / hybrid color-coded chips)
+- Top-1 ★ emphasis · Score normalized 0–100%
+- Auto-index on folder add · Live indexing (FSEvents + polling fallback) · WAL-safe migration backups
+- 6-step onboarding · in-app Quick Start guide
+
+### Benchmark (67-query Korean working corpus)
+| Profile | Recall@5 | Latency p95 |
+|---------|:--------:|:-----------:|
+| A — no rerank | **78.1%** | **102 ms** |
+| B — with Qwen3-Reranker 0.6B | **81.5%** | ~1 s |
+
+### Privacy
+**100% on-device.** Embeddings via local Ollama, indexing via local SQLite (FTS5 + sqlite-vec). Nothing leaves your Mac.
+
+---
+
 ## On-device AI — BatiAI Quantized Models
 
 [BatiAI](https://huggingface.co/batiai) self-quantized models optimized for Apple Silicon. One-click download from the app — no terminal needed.
@@ -103,6 +152,9 @@ Your data never leaves your Mac. 🔒
 ---
 
 ## Features
+
+### 🔍 Knowledge Search — Local RAG _(NEW in v0.9.0)_
+Drag a folder → auto-index → search by filename / body / meaning. Korean filenames work out of the box (NFD/NFC + bigram fallback + reverse split). Five modes: auto / filename / content (BM25) / semantic (vector) / hybrid (RRF). 100% on-device. ⌘K global search, Space Quick Look, ↑↓ keyboard nav.
 
 ### 💬 AI Agent with 70+ Built-in Tools
 Natural language → automatic tool selection → execution → result summary. No scripting required. Non-developers can use it right away — just type what you want done.
@@ -277,6 +329,26 @@ Check Settings → AI → Browser. If Node.js shows ❌, click "Install Node.js"
 ```
 
 AI에게 자연어로 말하면, 카카오톡 발송 · 메시지 읽기 · 브라우저 조작 · 반복 스케줄까지 전부 자동 처리합니다.
+
+### 🔍 지식 검색 (Local RAG) — v0.9.0 신규
+
+Spotlight는 파일명만, 그것도 한국어가 제대로 안 잡혀요. BatiFlow는 본문/의미까지 검색하고, 한국어가 처음부터 정상 작동합니다.
+
+- **5가지 검색 모드** — 자동 / 파일명 / 본문(BM25) / 의미(벡터) / 하이브리드(RRF)
+- **한국어 NFD/NFC 자동 정규화** — APFS는 한글을 자모 분리(`이력서` → `ㅇㅣᆯᅧᆨㅅᅥ`)로 저장하는데, BatiFlow가 양방향 정규화로 정상 매칭
+- **공백/부분 토큰 fallback** — `"마녀 공장"` ≡ `"마녀공장"`, `"홍길동연구소"` → `"홍길동 연구소.pdf"`
+- **Qwen3-Embedding** (Ollama 로컬, 0.6B/4B/8B, 1024d MRL)
+- **Qwen3-Reranker 전용 cross-encoder** — 0.6B로도 일반 35B LLM 수준 reranker 정확도
+- **⌘K 글로벌 검색** · **Space Quick Look** · **↑↓ 키보드 네비** (Spotlight 패턴)
+- **100% 로컬** — 외부 전송 0건. 로컬 Ollama 임베딩, 로컬 SQLite(FTS5 + sqlite-vec) 색인
+
+**벤치마크 (한국어 working corpus, 67 쿼리)**
+| 프로파일 | Recall@5 | Latency p95 |
+|---------|:--------:|:-----------:|
+| A — rerank 없음 | **78.1%** | **102 ms** |
+| B — Qwen3-Reranker 0.6B | **81.5%** | ~1 s |
+
+폴더 드래그 → 자동 색인 → 검색. PDF, OOXML(docx/xlsx/pptx), RTF, 텍스트 본문까지 indexing.
 
 ### 카카오톡 자동화
 BatiFlow는 macOS 접근성 API를 사용하여 카카오톡을 직접 제어합니다. 카카오톡은 공식 자동화 API가 없지만, BatiFlow는 화면 요소를 직접 조작하여 메시지 발송, 읽기, 대량 발송을 자동화합니다.
