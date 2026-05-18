@@ -2,11 +2,13 @@
 
 # BatiFlow
 
-**On-device AI desktop automation + local RAG search for Mac** — free, private, unlimited.
+**On-device AI desktop automation + local knowledge for Mac** — free, private, unlimited.
 
 Run open-source AI models locally with a few clicks. No cloud, no API keys, no cost.
 Control any macOS app through natural language — even apps without APIs.
-**NEW in v0.9.0:** Search inside your folders by filename, body keyword, or meaning. Korean filenames work out of the box.
+
+**NEW in v0.10:** **Web Scrap** clips LinkedIn / Threads / X / Medium posts to plain markdown — yours forever, no service can take them away. **Knowledge Graph** visualizes how your captures cluster.
+**v0.9:** Local RAG search across your folders — filename, body, or meaning. Korean filenames work out of the box.
 
 [![Release](https://img.shields.io/github/v/release/batiai/batiflow-releases?style=flat-square&color=5994FF)](https://github.com/batiai/batiflow-releases/releases/latest)
 [![macOS](https://img.shields.io/badge/macOS-13%2B-000?style=flat-square&logo=apple)](https://github.com/batiai/batiflow-releases/releases/latest)
@@ -166,6 +168,57 @@ Three sources blended via Reciprocal Rank Fusion with weighted ranking.
 
 ---
 
+## 🪄 Web Scrap — your knowledge, as markdown files _(NEW in v0.10.0)_
+
+Clip LinkedIn / Threads / Instagram / X / Medium posts to plain `.md` files in `~/Documents/BatiFlow/scrap/`. Searchable by any tool you'll ever use, sync-friendly with iCloud / Dropbox / Obsidian, and immune to the service shutdowns that have wiped years of saves on Pocket, Twitter bookmarks, and Notion clip libraries.
+
+```
+~/Documents/BatiFlow/scrap/2026-05-18-piku-on-batiflow-a8c596eb/
+├── post.md             # YAML frontmatter + body + comments
+├── extraction.json     # provenance: strategy / candidates / confidence
+└── images/, videos/    # carousels + mp4/HLS downloads
+```
+
+### What gets saved
+Author block, body, hashtags, images (carousels), videos (mp4/HLS), comments, reactions count, original URL — all in YAML frontmatter. Reposts split correctly: outer reposter goes in `via:`, inner author stays the post author.
+
+### Stable across DOM changes
+Site-specific recipes survived LinkedIn's hashed class names and component-key UUID migration mid-month. Pure JavaScript extractors + JSDOM regression tests + rolling HTML snapshot archive — when a site changes DOM, the failing snapshot becomes the next test fixture.
+
+### AI features _(optional, off by default)_
+- **Auto-summary** — 2-line summary in frontmatter (Claude / OpenAI / Ollama)
+- **Auto-tagging + bulk re-tag** — LLM picks 2-3 focused tags; re-tag past captures in batch
+
+### Three Chrome connection modes
+- **Headless** (default) — Chrome runs in background, captures invisibly
+- **Standalone BatiFlow Chrome** — separate Chrome window for manual captcha if needed
+- **Your main Chrome** — direct CDP connection, your cookies and logins, no re-auth
+
+### Why plain markdown matters
+- **Pocket** ended service in 2025 — users had to scramble to export years of saves.
+- **Twitter / X bookmarks** disappear if your account is suspended or deleted.
+- **Notion Web Clipper** keeps clips inside Notion's database — exporting cleanly is non-trivial.
+- **Readwise** is a $9.99–$12/mo subscription that syncs to their cloud.
+
+BatiFlow writes plain markdown to your Mac. Open in Obsidian, grep with `rg`, sync via iCloud, back up with Time Machine, port to whatever comes next. Your knowledge outlives the tool that captured it.
+
+### Auto-joined to Knowledge search
+Your scraps automatically join the local RAG index alongside your folders. Search across personal documents *and* captured web knowledge in one query.
+
+---
+
+## 🕸 Knowledge Graph — see how your captures cluster _(NEW in v0.10.0)_
+
+Force-directed visualization with deterministic community detection. Same captures always get the same colors.
+
+- **Edges** automatically computed from shared tags (strongest signal), same author, same source.
+- **Drag nodes** to spread clusters; pan, zoom (trackpad pinch + mouse wheel), click → preview.
+- **Tag filter chips** along the bottom — top 12 tags by frequency.
+- **Readable from first frame** — collision physics + rest-length springs + soft bounds keep clusters separated, not center-piled.
+- Auto-refresh on every new capture (1.5s debounce).
+
+---
+
 ## On-device AI — BatiAI Quantized Models
 
 [BatiAI](https://huggingface.co/batiai) self-quantized models optimized for Apple Silicon. One-click download from the app — no terminal needed.
@@ -201,7 +254,13 @@ Your data never leaves your Mac. 🔒
 
 ## Features
 
-### 🔍 Knowledge Search — Local RAG _(NEW in v0.9.0)_
+### 🪄 Web Scrap — your knowledge, as markdown files _(NEW in v0.10.0)_
+Clip LinkedIn / Threads / Instagram / X / Medium posts to plain `.md` files on your Mac. Author, body, hashtags, images, videos, comments, reactions count — all in YAML frontmatter. Three Chrome modes (headless / standalone / your main Chrome). Reposts split correctly (`via:`). Optional AI auto-summary + auto-tagging. Auto-joined to Knowledge search.
+
+### 🕸 Knowledge Graph — see how captures cluster _(NEW in v0.10.0)_
+Force-directed visualization with deterministic community detection. Edges from shared tags / same author / same source. Drag, pan, zoom (pinch + scroll wheel), click → preview. Tag filter chips. Readable from first frame (collision physics + rest-length springs).
+
+### 🔍 Knowledge Search — Local RAG _(v0.9.0)_
 Drag a folder → auto-index → search by filename / body / meaning. Korean filenames work out of the box (NFD/NFC + bigram fallback + reverse split). Five modes: auto / filename / content (BM25) / semantic (vector) / hybrid (RRF). 100% on-device. ⌘K global search, Space Quick Look, ↑↓ keyboard nav.
 
 ### 💬 AI Agent with 70+ Built-in Tools
@@ -379,7 +438,35 @@ Check Settings → AI → Browser. If Node.js shows ❌, click "Install Node.js"
 
 AI에게 자연어로 말하면, 카카오톡 발송 · 메시지 읽기 · 브라우저 조작 · 반복 스케줄까지 전부 자동 처리합니다.
 
-### 🔍 지식 검색 (Local RAG) — v0.9.0 신규
+### 🪄 웹 스크랩 — markdown 파일로 영원히 내 것 — v0.10.0 신규
+
+LinkedIn · Threads · Instagram · X · Medium 게시물을 클릭 한 번에 `~/Documents/BatiFlow/scrap/` 의 markdown 파일로 저장. Pocket 처럼 서비스가 닫혀도, X 계정이 정지돼도, Notion 처럼 export 가 까다로워도 영향 0.
+
+```
+~/Documents/BatiFlow/scrap/2026-05-18-piku-on-batiflow-a8c596eb/
+├── post.md             # YAML frontmatter + 본문 + 댓글
+├── extraction.json     # 추출 provenance
+└── images/, videos/    # carousel + mp4/HLS
+```
+
+- **저장되는 항목** — 작성자, 본문, 해시태그, 이미지(carousel), 영상(mp4/HLS), 댓글, 반응 수, 원본 URL.
+- **퍼간글 분리** — outer 퍼간 사람은 `via:`, inner 원작자는 그대로 author.
+- **DOM 변경에 강건** — LinkedIn 의 hashed class 이전에도 alt 속성 기반 Strategy E 로 안정 추출. 회귀 시 HTML snapshot 자동 보관 → fixture 화.
+- **3가지 Chrome 모드** — headless (기본) / 별도 BatiFlow Chrome / 메인 Chrome 직결 (내 쿠키 그대로).
+- **AI 자동 요약 + 자동 태깅** (선택) — Claude / OpenAI / Ollama 로 2줄 요약, focused 2-3 태그.
+- **Knowledge 검색 자동 합류** — 폴더 RAG 와 같이 한 번에 검색.
+- **plain markdown 의 이유** — Obsidian · grep · iCloud · Time Machine 어디서든 그대로. BatiFlow 가 없어져도 데이터는 남는다.
+
+### 🕸 Knowledge Graph — 저장한 캡처들의 관계 시각화 — v0.10.0 신규
+
+Force-directed graph 로 캡처 간 관계 (공유 태그 / 같은 작성자 / 같은 출처) 를 시각화. 같은 입력 → 같은 색 배치 (deterministic community detection).
+
+- 노드 drag 로 클러스터 펼치기, pan / zoom (trackpad pinch + 마우스 휠), click → preview.
+- 하단 tag filter chip 으로 토픽별 필터링.
+- 첫 화면부터 readable spread (collision physics + rest-length spring + soft bound).
+- 캡처 시 자동 refresh (1.5s debounce).
+
+### 🔍 지식 검색 (Local RAG) — v0.9.0
 
 Spotlight는 파일명만, 그것도 한국어가 제대로 안 잡혀요. BatiFlow는 본문/의미까지 검색하고, 한국어가 처음부터 정상 작동합니다.
 
