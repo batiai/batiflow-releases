@@ -223,7 +223,7 @@ Force-directed visualization with deterministic community detection. Same captur
 
 [BatiAI](https://huggingface.co/batiai) self-quantized models optimized for Apple Silicon. One-click download from the app — no terminal needed.
 
-> 🤗 **49,000+ downloads** across 25+ BatiAI models on [HuggingFace](https://huggingface.co/batiai) and [Ollama](https://ollama.com/batiai) — quantized from Google/Alibaba official weights for Apple Silicon.
+> 🤗 **89,000+ downloads** across 28+ BatiAI models on [HuggingFace](https://huggingface.co/batiai) (66K+ recent) and [Ollama](https://ollama.com/batiai) (22K+ cumulative pulls) — quantized from Google/Alibaba official weights for Apple Silicon.
 
 > 📊 **Community-measured benchmarks** — 80+ unique Apple Silicon devices, 700+ samples, M1 → M5 coverage. Numbers below are **median (p50)** from real users' Macs, not synthetic.
 
