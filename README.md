@@ -11,10 +11,10 @@ Control any macOS app through natural language — even apps without APIs.
 **v0.9:** Local RAG search across your folders — filename, body, or meaning. Korean filenames work out of the box.
 
 [![Release](https://img.shields.io/github/v/release/batiai/batiflow-releases?style=flat-square&color=5994FF)](https://github.com/batiai/batiflow-releases/releases/latest)
-[![macOS](https://img.shields.io/badge/macOS-13%2B-000?style=flat-square&logo=apple)](https://github.com/batiai/batiflow-releases/releases/latest)
+[![macOS](https://img.shields.io/badge/macOS-14%2B-000?style=flat-square&logo=apple)](https://github.com/batiai/batiflow-releases/releases/latest)
 [![License](https://img.shields.io/badge/license-Proprietary-333?style=flat-square)](https://bati.ai)
 
-[**Download**](https://github.com/batiai/batiflow-releases/releases/latest) · [Website](https://flow.bati.ai) · [BatiAI Models](https://huggingface.co/batiai) · [Ollama Library](https://ollama.com/batiai) · [Issues](https://github.com/batiai/batiflow-releases/issues)
+[**Download**](https://github.com/batiai/batiflow-releases/releases/latest) · [Windows? STT 가이드](docs/WINDOWS-STT.md) · [Website](https://flow.bati.ai) · [BatiAI Models](https://huggingface.co/batiai) · [Ollama Library](https://ollama.com/batiai) · [Issues](https://github.com/batiai/batiflow-releases/issues)
 
 </div>
 
