@@ -14,7 +14,7 @@ Control any macOS app through natural language — even apps without APIs.
 [![macOS](https://img.shields.io/badge/macOS-14%2B-000?style=flat-square&logo=apple)](https://github.com/batiai/batiflow-releases/releases/latest)
 [![License](https://img.shields.io/badge/license-Proprietary-333?style=flat-square)](https://bati.ai)
 
-[**Download**](https://github.com/batiai/batiflow-releases/releases/latest) · [Windows? STT 가이드](docs/WINDOWS-STT.md) · [Website](https://flow.bati.ai) · [BatiAI Models](https://huggingface.co/batiai) · [Ollama Library](https://ollama.com/batiai) · [Issues](https://github.com/batiai/batiflow-releases/issues)
+[**Download**](https://github.com/batiai/batiflow-releases/releases/latest) · [Windows용 BatiSay ⬇](https://github.com/batiai/batisay-releases) · [Website](https://flow.bati.ai) · [BatiAI Models](https://huggingface.co/batiai) · [Ollama Library](https://ollama.com/batiai) · [Issues](https://github.com/batiai/batiflow-releases/issues)
 
 </div>
 

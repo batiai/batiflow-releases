@@ -1,3 +1,6 @@
+> **🎉 업데이트: 이제 Windows 전용 앱이 있습니다 — [BatiSay 받아쓰기](https://github.com/batiai/batisay-releases)**
+> 드래그드롭 받아쓰기 + 화자분리 + 타임스탬프 재생을 설치 한 번으로. 아래 CLI 방법은 고급 사용자용으로 남겨둡니다.
+
 # Windows에서 BatiFlow 한국어 음성인식(batisay) 쓰기
 
 > BatiFlow 앱은 현재 macOS 전용이지만, **음성인식 모델(batisay)은 공개되어 있어 Windows에서도 그대로 쓸 수 있습니다.**
