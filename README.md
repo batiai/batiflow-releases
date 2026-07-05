@@ -20,6 +20,18 @@ Control any macOS app through natural language — even apps without APIs.
 
 ---
 
+---
+
+## 🪟 NEW — Windows에도 왔습니다: **BatiSay 받아쓰기** (베타)
+
+한국어 특화 온디바이스 **음성인식 + 화자분리** Windows 앱입니다. 통화 녹음(m4a)을 끌어다 놓으면 받아쓰고, 누가 말했는지 구분하고, 타임스탬프 클릭으로 그 부분을 바로 재생합니다. 기록·메모까지 — 모든 처리는 PC 안에서만.
+
+**[⬇ BatiSay 다운로드](https://github.com/batiai/batisay-releases/releases)** · 무료 베타
+
+> ⚠️ 베타 기간에는 설치 시 Windows SmartScreen 경고("확인되지 않은 앱")가 표시될 수 있습니다 — 아직 코드서명 전이라 그렇습니다. **[추가 정보] → [실행]** 으로 진행하시면 됩니다. 오디오·전사 내용은 절대 PC 밖으로 전송되지 않습니다.
+
+---
+
 ## 🎬 See it in action
 
 <table>
